@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 12
       - name: "Automated Version Bump"
-        uses: "kaangokdemir/github-version-bumper@master"
+        uses: "kaangokdemir/github-version-bumper@dev"
         with:
           tag-prefix: ''
         env:
