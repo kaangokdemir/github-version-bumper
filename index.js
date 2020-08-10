@@ -85,11 +85,7 @@ Toolkit.run(async (tools) => {
     await tools.runInWorkspace('git', ['checkout', currentBranch])
     await bump(fileName)
 
-    console.log('current:', current, '/', 'version:', version)
-    newVersion = execSync(`npm version --git-tag-version=false ${version}`)
-      .toString()
-      .trim()
-    newVersion = `${process.env['INPUT_TAG-PREFIX']}${newVersion}`
+    newVersion = JSON.parse(tools.getFile(fileName)).version
 
     await tools.runInWorkspace('git', [
       'commit',
