@@ -1,0 +1,17 @@
+name: Automated Version Bump
+description: Automated version bump for npm packages.
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: chevron-up
+  color: blue
+inputs:
+  tag-prefix:
+    description: 'Prefix that is used for the git tag'
+    default: ''
+    required: false
+  PACKAGEJSON_DIR:
+    description: 'Custom dir to the package'
+    default: ''
+    required: false
