@@ -39,7 +39,7 @@ Toolkit.run(async (tools) => {
     await bump(fileName)
 
     if (fileName === 'package.json') {
-      await bump('package.lock.json')
+      await bump('package-lock.json')
     }
 
     const newVersion = JSON.parse(tools.getFile(fileName)).version
