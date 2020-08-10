@@ -35,6 +35,7 @@ Toolkit.run(async (tools) => {
   }
 
   let version = 'patch'
+
   if (
     messages
       .map(
@@ -76,6 +77,10 @@ Toolkit.run(async (tools) => {
     const currentBranch = /refs\/[a-zA-Z]+\/(.*)/.exec(
       process.env.GITHUB_REF
     )[1]
+
+    let newVersion = execSync(`npm version --git-tag-version=false ${version}`)
+      .toString()
+      .trim()
 
     await tools.runInWorkspace('git', ['checkout', currentBranch])
     await bump(fileName)
