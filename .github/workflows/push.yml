@@ -25,6 +25,6 @@ jobs:
         uses: "kaangokdemir/github-version-bumper@dev"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION_FILE_NAME: "version.json"
+          VERSION_FILE_NAME: "package.json"
       - name: "cat package.json"
         run: cat ./package.json
