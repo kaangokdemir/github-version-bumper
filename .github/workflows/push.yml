@@ -27,5 +27,6 @@ jobs:
           tag-prefix: ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION_FILE_NAME: "version.json"
       - name: "cat package.json"
         run: cat ./package.json
