@@ -1,5 +1,6 @@
 const { Toolkit } = require('actions-toolkit')
 const { execSync } = require('child_process')
+const bump = require('json-bump')
 
 // Change working directory if user defined PACKAGEJSON_DIR
 if (process.env.PACKAGEJSON_DIR) {
@@ -9,13 +10,14 @@ if (process.env.PACKAGEJSON_DIR) {
 
 // Run your GitHub Action!
 Toolkit.run(async (tools) => {
-  const pkg = JSON.parse(tools.getFile(process.env.VERSION_FILE_NAME || 'package.json'))
+  const fileName = process.env.VERSION_FILE_NAME || 'package.json'
+  const pkg = JSON.parse(tools.getFile(fileName))
   console.log(pkg)
   const event = tools.context.payload
 
   if (!event.commits) {
     console.log(
-      "Couldn't find any commits in this event, incrementing patch version..."
+      "Couldn't find any commits in this event, incrzementing patch version..."
     )
   }
 
@@ -78,12 +80,9 @@ Toolkit.run(async (tools) => {
 
     // do it in the current checked out github branch (DETACHED HEAD)
     // important for further usage of the package.json version
-    await tools.runInWorkspace('npm', [
-      'version',
-      '--allow-same-version=true',
-      '--git-tag-version=false',
-      current,
-    ])
+    await bump(fileName)
+
+ 
     console.log('current:', current, '/', 'version:', version)
     let newVersion = execSync(`npm version --git-tag-version=false ${version}`)
       .toString()
@@ -97,12 +96,8 @@ Toolkit.run(async (tools) => {
 
     // now go to the actual branch to perform the same versioning
     await tools.runInWorkspace('git', ['checkout', currentBranch])
-    await tools.runInWorkspace('npm', [
-      'version',
-      '--allow-same-version=true',
-      '--git-tag-version=false',
-      current,
-    ])
+    await bump(fileName)
+
     console.log('current:', current, '/', 'version:', version)
     newVersion = execSync(`npm version --git-tag-version=false ${version}`)
       .toString()
