@@ -11,21 +11,21 @@ if (process.env.PACKAGEJSON_DIR) {
 Toolkit.run(async (tools) => {
   const fileName = process.env.VERSION_FILE_NAME || 'package.json'
 
-  const commitMessage = 'version bump to v'
+  const commitMessage = 'version bumped to v'
 
   try {
     // SET USER
     await tools.runInWorkspace('git', [
       'config',
       'user.name',
-      `"${process.env.GITHUB_USER || 'Automated Version Bump'}"`,
+      `"${process.env.GITHUB_USER || 'GitHub Version Bumper'}"`,
     ])
     await tools.runInWorkspace('git', [
       'config',
       'user.email',
       `"${
         process.env.GITHUB_EMAIL ||
-        'gh-action-bump-version@users.noreply.github.com'
+        'github-version-bumper@users.noreply.github.com'
       }"`,
     ])
 
