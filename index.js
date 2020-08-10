@@ -57,7 +57,6 @@ Toolkit.run(async (tools) => {
   }
 
   try {
-    const current = pkg.version.toString()
     // set git user
     await tools.runInWorkspace('git', [
       'config',
@@ -76,47 +75,9 @@ Toolkit.run(async (tools) => {
     const currentBranch = /refs\/[a-zA-Z]+\/(.*)/.exec(
       process.env.GITHUB_REF
     )[1]
-    console.log('currentBranch:', currentBranch)
 
-    // do it in the current checked out github branch (DETACHED HEAD)
-    // important for further usage of the package.json version
-
- 
-    console.log('current:', current, '/', 'version:', version)
-    let newVersion = execSync(`npm version --git-tag-version=false ${version}`)
-      .toString()
-      .trim()
-    await tools.runInWorkspace('git', [
-      'commit',
-      '-a',
-      '-m',
-      `ci: ${commitMessage} ${newVersion}`,
-    ])
-
-    // now go to the actual branch to perform the same versioning
     await tools.runInWorkspace('git', ['checkout', currentBranch])
     await bump(fileName)
-
-    console.log('current:', current, '/', 'version:', version)
-    newVersion = execSync(`npm version --git-tag-version=false ${version}`)
-      .toString()
-      .trim()
-    newVersion = `${process.env['INPUT_TAG-PREFIX']}${newVersion}`
-    console.log('new version:', newVersion)
-    try {
-      // to support "actions/checkout@v1"
-      await tools.runInWorkspace('git', [
-        'commit',
-        '-a',
-        '-m',
-        `ci: ${commitMessage} ${newVersion}`,
-      ])
-    } catch (e) {
-      console.warn(
-        'git commit failed because you are using "actions/checkout@v2"; ' +
-          'but that doesnt matter because you dont need that git commit, thats only for "actions/checkout@v1"'
-      )
-    }
 
     const remoteRepo = `https://${process.env.GITHUB_ACTOR}:${process.env.GITHUB_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git`
     // console.log(Buffer.from(remoteRepo).toString('base64'))
