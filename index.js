@@ -80,7 +80,6 @@ Toolkit.run(async (tools) => {
 
     // do it in the current checked out github branch (DETACHED HEAD)
     // important for further usage of the package.json version
-    await bump(fileName)
 
  
     console.log('current:', current, '/', 'version:', version)
