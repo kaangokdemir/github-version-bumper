@@ -57,6 +57,7 @@ Toolkit.run(async (tools) => {
   }
 
   try {
+    const current = pkg.version.toString()
     // set git user
     await tools.runInWorkspace('git', [
       'config',
@@ -78,6 +79,12 @@ Toolkit.run(async (tools) => {
 
     await tools.runInWorkspace('git', ['checkout', currentBranch])
     await bump(fileName)
+
+    console.log('current:', current, '/', 'version:', version)
+    newVersion = execSync(`npm version --git-tag-version=false ${version}`)
+      .toString()
+      .trim()
+    newVersion = `${process.env['INPUT_TAG-PREFIX']}${newVersion}`
 
     const remoteRepo = `https://${process.env.GITHUB_ACTOR}:${process.env.GITHUB_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git`
     // console.log(Buffer.from(remoteRepo).toString('base64'))
