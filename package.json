@@ -1,6 +1,6 @@
 {
     "name": "github-version-bumper",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/kaangokdemir/github-version-bumper.git"
