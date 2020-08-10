@@ -11,54 +11,10 @@ if (process.env.PACKAGEJSON_DIR) {
 // Run your GitHub Action!
 Toolkit.run(async (tools) => {
   const fileName = process.env.VERSION_FILE_NAME || 'package.json'
-  const pkg = JSON.parse(tools.getFile(fileName))
 
-  const event = tools.context.payload
-
-  if (!event.commits) {
-    console.log(
-      "Couldn't find any commits in this event, incrzementing patch version..."
-    )
-  }
-
-  const messages = event.commits
-    ? event.commits.map((commit) => commit.message + '\n' + commit.body)
-    : []
-
-  const commitMessage = 'version bump to'
-  const isVersionBump = messages
-    .map((message) => message.toLowerCase().includes(commitMessage))
-    .includes(true)
-  if (isVersionBump) {
-    tools.exit.success('No action necessary!')
-    return
-  }
-
-  let version = 'patch'
-
-  if (
-    messages
-      .map(
-        (message) =>
-          message.includes('BREAKING CHANGE') || message.includes('major')
-      )
-      .includes(true)
-  ) {
-    version = 'major'
-  } else if (
-    messages
-      .map(
-        (message) =>
-          message.toLowerCase().startsWith('feat') ||
-          message.toLowerCase().includes('minor')
-      )
-      .includes(true)
-  ) {
-    version = 'minor'
-  }
+  const commitMessage = 'version bump to v'
 
   try {
-    const current = pkg.version.toString()
     // set git user
     await tools.runInWorkspace('git', [
       'config',
@@ -78,14 +34,10 @@ Toolkit.run(async (tools) => {
       process.env.GITHUB_REF
     )[1]
 
-    let newVersion = execSync(`npm version --git-tag-version=false ${version}`)
-      .toString()
-      .trim()
-
     await tools.runInWorkspace('git', ['checkout', currentBranch])
     await bump(fileName)
 
-    newVersion = JSON.parse(tools.getFile(fileName)).version
+    let newVersion = JSON.parse(tools.getFile(fileName)).version
 
     await tools.runInWorkspace('git', [
       'commit',
@@ -93,6 +45,8 @@ Toolkit.run(async (tools) => {
       '-m',
       `ci: ${commitMessage} ${newVersion}`,
     ])
+
+    console.log(newVersion)
 
     const remoteRepo = `https://${process.env.GITHUB_ACTOR}:${process.env.GITHUB_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git`
     // console.log(Buffer.from(remoteRepo).toString('base64'))
