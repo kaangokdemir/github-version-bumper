@@ -23,9 +23,8 @@ jobs:
           node-version: 12
       - name: "Automated Version Bump"
         uses: "kaangokdemir/github-version-bumper@master"
-        with:
-          tag-prefix: ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION_FILE_NAME: "package.json"
       - name: "cat package.json"
         run: cat ./package.json
