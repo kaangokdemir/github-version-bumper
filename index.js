@@ -12,7 +12,7 @@ if (process.env.PACKAGEJSON_DIR) {
 Toolkit.run(async (tools) => {
   const fileName = process.env.VERSION_FILE_NAME || 'package.json'
   const pkg = JSON.parse(tools.getFile(fileName))
-  console.log(pkg)
+
   const event = tools.context.payload
 
   if (!event.commits) {
@@ -90,6 +90,13 @@ Toolkit.run(async (tools) => {
       .toString()
       .trim()
     newVersion = `${process.env['INPUT_TAG-PREFIX']}${newVersion}`
+
+    await tools.runInWorkspace('git', [
+      'commit',
+      '-a',
+      '-m',
+      `ci: ${commitMessage} ${newVersion}`,
+    ])
 
     const remoteRepo = `https://${process.env.GITHUB_ACTOR}:${process.env.GITHUB_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git`
     // console.log(Buffer.from(remoteRepo).toString('base64'))
