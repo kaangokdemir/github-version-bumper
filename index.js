@@ -41,7 +41,6 @@ Toolkit.run(async (tools) => {
     if (fileName === 'package.json') {
       try {
         await bump('package-lock.json')
-        await bump('yarn.lock')
       } catch (error) {
         console.log(error)
       }
