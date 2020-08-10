@@ -9,7 +9,7 @@ if (process.env.PACKAGEJSON_DIR) {
 
 // Run your GitHub Action!
 Toolkit.run(async (tools) => {
-  const pkg = process.env.VERSION_FILE_NAME ? tools.getFile(process.env.VERSION_FILE_NAME) : tools.getPackageJSON()
+  const pkg = tools.getFile(process.env.VERSION_FILE_NAME || 'package.json')
   const event = tools.context.payload
 
   if (!event.commits) {
