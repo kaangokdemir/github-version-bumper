@@ -9,7 +9,7 @@ Bump your applications' version after each push.
 
 Create a `yaml` file in workflows folder.
 ```bash
-touch .github/workflows/version.yml
+mkdir -p .github/workflows && touch .github/workflows/version.yaml
 ```
 
 And configure your settings
@@ -20,23 +20,13 @@ on:
   push:
     branches:
       - "master"
-
 jobs:
   bump-version:
     name: "Bump Version on master"
     runs-on: ubuntu-latest
-
     steps:
       - name: "Checkout source code"
         uses: "actions/checkout@v2"
-        with:
-          ref: ${{ github.ref }}
-      - name: "cat package.json"
-        run: cat ./package.json
-      - name: "Setup Node.js"
-        uses: "actions/setup-node@v1"
-        with:
-          node-version: 12
       - name: "GitHub Version Bumper"
         uses: "kaangokdemir/github-version-bumper@master"
         env:
@@ -44,8 +34,6 @@ jobs:
           GITHUB_NAME: "Your Name"
           GITHUB_EMAIL: "your_email@gmail.com"
           VERSION_FILE_NAME: "your_version_file.json"
-      - name: "cat package.json"
-        run: cat ./package.json
 ```
 
 ## Contributing
