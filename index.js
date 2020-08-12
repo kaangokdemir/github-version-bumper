@@ -1,6 +1,5 @@
 const { Toolkit } = require('actions-toolkit')
-const bump = require('json-bump')
-
+const bumpVersion = require('./helpers/bumper')
 // Change working directory if user defined PACKAGEJSON_DIR
 if (process.env.PACKAGEJSON_DIR) {
   process.env.GITHUB_WORKSPACE = `${process.env.GITHUB_WORKSPACE}/${process.env.PACKAGEJSON_DIR}`
@@ -43,23 +42,15 @@ Toolkit.run(async (tools) => {
 
     if (lastCommit.includes('[ci-bump major]')) {
       console.log('major')
-      await bump(fileName, { major: true })
+      await bumpVersion(fileName, { major: true })
     } else if (lastCommit.includes('[ci-bump minor]')) {
       console.log('minor')
-      await bump(fileName, { minor: true })
+      await bumpVersion(fileName, { minor: true })
     } else {
       console.log('patch')
-      await bump(fileName)
+      await bumpVersion(fileName)
     }
     // Bumping Starts
-
-    if (fileName === 'package.json') {
-      try {
-        await bump('package-lock.json')
-      } catch (error) {
-        console.log(error)
-      }
-    }
 
     const newVersion = JSON.parse(tools.getFile(fileName)).version
 
