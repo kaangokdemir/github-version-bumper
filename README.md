@@ -55,8 +55,6 @@ after pushing or merging into your branch, major versioning would happen instead
 ## TODO
 
 - Currently only supports `json` need to support `yaml` an `toml` files as well.
-- Currently only patches the version. Minor and major versions could be updatable as well.
-- Migrate to TypeScript.
 
 ## Contributors
 
