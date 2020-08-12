@@ -39,7 +39,7 @@ Toolkit.run(async (tools) => {
     const lastCommit =
       JSON.stringify(await tools.runInWorkspace('git', ['log', '-1'])) || ''
 
-    console.log('lastcommitmessage', lastCommitMessage)
+    console.log('lastcommitmessage', lastCommit)
 
     if (lastCommit.includes('[ci-bump major]')) {
       console.log('major')
