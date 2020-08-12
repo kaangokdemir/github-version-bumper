@@ -30,11 +30,15 @@ Toolkit.run(async (tools) => {
     ])
 
     const currentBranch = /refs\/[a-zA-Z]+\/(.*)/.exec(
-      process.env.GITHUB_REF,
+      process.env.GITHUB_REF
     )[1]
 
     await tools.runInWorkspace('git', ['checkout', currentBranch])
 
+    const lastCommitMessage = tools.runInWorkspace(
+      'git'[('log', '-1 --pretty=%B')]
+    )
+    console.log('lcm', lastCommitMessage)
     // BUMPING STARTS
     await bump(fileName)
 
