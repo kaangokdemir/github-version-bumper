@@ -35,8 +35,23 @@ Toolkit.run(async (tools) => {
 
     await tools.runInWorkspace('git', ['checkout', currentBranch])
 
-    // BUMPING STARTS
-    await bump(fileName)
+    // Getting last commit information
+    const lastCommit =
+      JSON.stringify(await tools.runInWorkspace('git', ['log', '-1'])) || ''
+
+    console.log('lastcommitmessage', lastCommit)
+
+    if (lastCommit.includes('[ci-bump major]')) {
+      console.log('major')
+      await bump(fileName, { major: true })
+    } else if (lastCommit.includes('[ci-bump minor]')) {
+      console.log('minor')
+      await bump(fileName, { minor: true })
+    } else {
+      console.log('patch')
+      await bump(fileName)
+    }
+    // Bumping Starts
 
     if (fileName === 'package.json') {
       try {

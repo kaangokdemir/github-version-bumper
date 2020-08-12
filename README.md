@@ -35,6 +35,14 @@ jobs:
           GITHUB_EMAIL: "your_email@gmail.com"
           VERSION_FILE_NAME: "your_version_file.json"
 ```
+For major and minor bumping, use `[ci-bump major]` or `[ci-bump minor]` in your commit message like:
+
+```git
+
+git commit -m "[ci-bump major] This is a major feature"
+```
+
+after pushing or merging into your branch, major versioning would happen instead patching.
 
 ## Contributing
 
@@ -47,7 +55,6 @@ jobs:
 ## TODO
 
 - Currently only supports `json` need to support `yaml` an `toml` files as well.
-- Currently only updates version key in json files. Make it customizable.
 - Currently only patches the version. Minor and major versions could be updatable as well.
 - Migrate to TypeScript.
 

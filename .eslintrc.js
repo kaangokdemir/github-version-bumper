@@ -3,28 +3,28 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
-    node: true
+    node: true,
   },
   extends: [
-    'standard'
+    'standard',
   ],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
   },
   rules: {
-    "no-unused-vars" : 1,
-    "comma-dangle": ["error", "always-multiline"],
-    "quotes": [2, "single"],
-    "prefer-template": ["error"],
-    "no-useless-concat": ["error"],
-    "prefer-destructuring": ["error", 
+    'no-unused-vars': 1,
+    'comma-dangle': ['error', 'always-multiline'],
+    quotes: [2, 'single'],
+    'prefer-template': ['error'],
+    'no-useless-concat': ['error'],
+    'prefer-destructuring': ['error',
       {
-        "object": true
-      }
-    ]
-  }
+        object: true,
+      },
+    ],
+  },
 }
