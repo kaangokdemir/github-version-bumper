@@ -35,10 +35,11 @@ Toolkit.run(async (tools) => {
 
     await tools.runInWorkspace('git', ['checkout', currentBranch])
 
-    const lastCommitMessage = tools.runInWorkspace(
-      'git'[('log', '-1 --pretty=%B')]
-    )
-    console.log('lcm', lastCommitMessage)
+    const lastCommitMessage = tools.runInWorkspace('git', [
+      'log',
+      '-1 --pretty=%B',
+    ])
+    console.log('lastcommitmessage', lastCommitMessage)
     // BUMPING STARTS
     await bump(fileName)
 
