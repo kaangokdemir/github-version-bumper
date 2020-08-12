@@ -37,7 +37,8 @@ Toolkit.run(async (tools) => {
 
     const lastCommitMessage = await tools.runInWorkspace('git', [
       'log',
-      '-1 --pretty=%B',
+      '-1',
+      ' --pretty=%B'
     ])
     console.log('lastcommitmessage', lastCommitMessage)
     // BUMPING STARTS
