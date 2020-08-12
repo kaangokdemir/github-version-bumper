@@ -10,5 +10,3 @@ export const bumpVersion = async (fileName: string, options?: object) => {
     }
   }
 }
-
-// module.exports = bumpVersion

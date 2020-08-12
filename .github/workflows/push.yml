@@ -3,7 +3,7 @@ name: "Bump Version"
 on:
   push:
     branches:
-      - "typescript-test"
+      - "master"
 
 jobs:
   bump-version:
@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 12
       - name: "Automated Version Bump"
-        uses: "kaangokdemir/github-version-bumper@typescript-test"
+        uses: "kaangokdemir/github-version-bumper@master"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION_FILE_NAME: "package.json"
