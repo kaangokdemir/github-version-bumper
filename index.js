@@ -35,7 +35,7 @@ Toolkit.run(async (tools) => {
 
     await tools.runInWorkspace('git', ['checkout', currentBranch])
 
-    const lastCommitMessage = tools.runInWorkspace('git', [
+    const lastCommitMessage = await tools.runInWorkspace('git', [
       'log',
       '-1 --pretty=%B',
     ])
