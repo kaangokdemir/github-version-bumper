@@ -1,6 +1,6 @@
 const bump = require('json-bump')
 
-const bumpVersion = async (fileName, options) => {
+export const bumpVersion = async (fileName: string, options?: object) => {
   await bump(fileName, options)
   if (fileName === 'package.json') {
     try {
@@ -11,4 +11,4 @@ const bumpVersion = async (fileName, options) => {
   }
 }
 
-module.exports = bumpVersion
+// module.exports = bumpVersion

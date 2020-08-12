@@ -1,5 +1,6 @@
-const { Toolkit } = require('actions-toolkit')
-const bumpVersion = require('./helpers/bumper')
+import { bumpVersion } from './helpers/bumper'
+import { Toolkit } from 'actions-toolkit'
+
 // Change working directory if user defined PACKAGEJSON_DIR
 if (process.env.PACKAGEJSON_DIR) {
   process.env.GITHUB_WORKSPACE = `${process.env.GITHUB_WORKSPACE}/${process.env.PACKAGEJSON_DIR}`
@@ -29,8 +30,8 @@ Toolkit.run(async (tools) => {
     ])
 
     const currentBranch = /refs\/[a-zA-Z]+\/(.*)/.exec(
-      process.env.GITHUB_REF,
-    )[1]
+      process.env.GITHUB_REF as string,
+    )?.[1] as string
 
     await tools.runInWorkspace('git', ['checkout', currentBranch])
 

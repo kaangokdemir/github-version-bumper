@@ -5,6 +5,9 @@ module.exports = {
     es6: true,
     node: true,
   },
+  plugins: [
+    '@typescript-eslint',
+  ],
   extends: [
     'standard',
   ],
@@ -12,8 +15,9 @@ module.exports = {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
   },
   rules: {
     'no-unused-vars': 1,
