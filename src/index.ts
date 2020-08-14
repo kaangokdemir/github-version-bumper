@@ -53,7 +53,7 @@ Toolkit.run(async (tools) => {
       console.log('splitted-0', splitted[0])
       console.log('splitted-1', splitted[1])
       const pre = splitted[1].split('\\"')[0]
-      console.log('pre', pre)
+      console.log('pre:', pre)
 
       await bumpVersion(fileName, { pre })
     } else if (lastCommit.includes('[ci-bump major]')) {
