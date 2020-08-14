@@ -39,3 +39,13 @@ test('Majors properly', async () => {
 
   expect(+oldVersion.split('.')[0]).toBe(+newVersion.split('.')[0] - 1)
 })
+
+test('Prereleases properly', async () => {
+  const oldVersion = JSON.parse(fs.readFileSync('./tests/test.json', 'utf8')).version
+
+  await bumpVersion('./tests/test.json', { pre: 'hello' })
+
+  const newVersion = JSON.parse(fs.readFileSync('./tests/test.json', 'utf8')).version
+
+  expect(`${oldVersion}-hello`).toBe(newVersion)
+})
