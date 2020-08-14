@@ -44,12 +44,15 @@ Toolkit.run(async (tools) => {
     // Bumping Starts
 
     if (lastCommit.includes('[ci-bump version=')) {
-      const splitted = lastCommit.split('[ci-bump version="')
-      const version = splitted[1].split('"')[0]
-      await bumpVersion(fileName, { version })
+      const splitted = lastCommit.split('[ci-bump version=\\"')
+      const replace = splitted[1].split('\\"')[0]
+      console.log('replace:', replace)
+      await bumpVersion(fileName, { replace })
     } else if (lastCommit.includes('[ci-bump pre=')) {
-      const splitted = lastCommit.split('[ci-bump pre="')
-      const pre = splitted[1].split('"')[0]
+      console.log('pre')
+      const splitted = lastCommit.split('[ci-bump pre=\\"')
+      const pre = splitted[1].split('\\"')[0]
+      console.log('pre:', pre)
       await bumpVersion(fileName, { pre })
     } else if (lastCommit.includes('[ci-bump major]')) {
       console.log('major')

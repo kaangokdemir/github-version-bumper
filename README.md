@@ -35,14 +35,15 @@ jobs:
           GITHUB_EMAIL: "your_email@gmail.com"
           VERSION_FILE_NAME: "your_version_file.json"
 ```
-For major and minor bumping, use `[ci-bump major]` or `[ci-bump minor]` in your commit message like:
+## Customize with commit messages
 
-```git
-
-git commit -m "[ci-bump major] This is a major feature"
-```
-
-after pushing or merging into your branch, major versioning would happen instead patching.
+| Feature           	| Commit Includes           	| Old Version 	| New Version   	|
+|-------------------	|---------------------------	|-------------	|---------------	|
+| Default (Patches) 	| -                         	| 1.5.8       	| 1.5.9         	|
+| Minor Bumping     	| [ci-bump minor]           	| 1.5.8       	| 1.6.0         	|
+| Major Bumping     	| [ci-bump major]           	| 1.5.8       	| 2.0.0         	|
+| Pre-releasing     	| [ci-bump pre="staging"]   	| 1.5.8       	| 1.5.8-staging 	|
+| Exact Versioning  	| [ci-bump version="1.6.3"] 	| 1.5.8       	| 1.6.3         	|
 
 ## Contributing
 
