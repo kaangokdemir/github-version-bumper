@@ -49,6 +49,7 @@ Toolkit.run(async (tools) => {
       await bumpVersion(fileName, { version })
     } else if (lastCommit.includes('[ci-bump pre=')) {
       const splitted = lastCommit.split('[ci-bump pre="')
+      console.log('CI BUMP HEREEEEE', splitted)
       const pre = splitted[1].split('"')[0]
       console.log('CI BUMP HEREEEEE', pre)
 
