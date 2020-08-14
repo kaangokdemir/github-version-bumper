@@ -50,6 +50,8 @@ Toolkit.run(async (tools) => {
     } else if (lastCommit.includes('[ci-bump pre=')) {
       const splitted = lastCommit.split('[ci-bump pre="')
       const pre = splitted[1].split('"')[0]
+      console.log('CI BUMP HEREEEEE', pre)
+
       await bumpVersion(fileName, { pre })
     } else if (lastCommit.includes('[ci-bump major]')) {
       console.log('major')
