@@ -42,6 +42,9 @@ Toolkit.run(async (tools) => {
     console.log('lastcommitmessage', lastCommit)
 
     // Bumping Starts
+
+    // if (lastCommit.include) {}
+
     if (lastCommit.includes('[ci-bump major]')) {
       console.log('major')
       await bumpVersion(fileName, { major: true })
