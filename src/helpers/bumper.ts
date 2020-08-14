@@ -1,4 +1,4 @@
-const bump = require('json-bump')
+const bump = require('json-bumper')
 
 export const bumpVersion = async (fileName: string, options?: object) => {
   await bump(fileName, options)

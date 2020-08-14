@@ -7,9 +7,11 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
+    'jest',
   ],
   extends: [
     'standard',
+    'plugin:jest/recommended',
   ],
   globals: {
     Atomics: 'readonly',
