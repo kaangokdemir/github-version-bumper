@@ -46,7 +46,7 @@ Toolkit.run(async (tools) => {
     if (lastCommit.includes('[ci-bump version=')) {
       const splitted = lastCommit.split('[ci-bump version=\\"')
 
-      console.log('splitted', splitted)
+      console.log('splitted version', splitted)
       console.log('splitted-0', splitted[0])
       console.log('splitted-1', splitted[1])
       const version = splitted[1].split('\\"')[0]
