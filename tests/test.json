@@ -1,3 +1,4 @@
 {
-    "version": "1.0.0-hello"
+    "version": "1.0.0-hello",
+    "test-ver": "1.0.1"
 }

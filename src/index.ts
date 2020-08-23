@@ -1,15 +1,12 @@
 import { bumpVersion } from './helpers/bumper'
 import { Toolkit } from 'actions-toolkit'
 
-// Change working directory if user defined PACKAGEJSON_DIR
-if (process.env.PACKAGEJSON_DIR) {
-  process.env.GITHUB_WORKSPACE = `${process.env.GITHUB_WORKSPACE}/${process.env.PACKAGEJSON_DIR}`
-  process.chdir(process.env.GITHUB_WORKSPACE)
-}
-
-// Run your GitHub Action!
 Toolkit.run(async (tools) => {
   const fileName = process.env.VERSION_FILE_NAME || 'package.json'
+  const entry = process.env.VERSION_ENTRY || 'version'
+  const githubUser = process.env.GITHUB_USER || 'GitHub Version Bumper'
+  const githubEmail =
+    process.env.GITHUB_EMAIL || 'github-version-bumper@users.noreply.github.com'
 
   const commitMessage = 'version bumped to v'
 
@@ -18,15 +15,12 @@ Toolkit.run(async (tools) => {
     await tools.runInWorkspace('git', [
       'config',
       'user.name',
-      `"${process.env.GITHUB_USER || 'GitHub Version Bumper'}"`,
+      `"${githubUser}"`,
     ])
     await tools.runInWorkspace('git', [
       'config',
       'user.email',
-      `"${
-        process.env.GITHUB_EMAIL ||
-        'github-version-bumper@users.noreply.github.com'
-      }"`,
+      `"${githubEmail}"`,
     ])
 
     const currentBranch = /refs\/[a-zA-Z]+\/(.*)/.exec(
@@ -47,19 +41,19 @@ Toolkit.run(async (tools) => {
       const splitted = lastCommit.split('[ci-bump version=\\"')
       const replace = splitted[1].split('\\"')[0]
       console.log('replace:', replace)
-      await bumpVersion(fileName, { replace })
+      await bumpVersion(fileName, { replace, entry })
     } else if (lastCommit.includes('[ci-bump pre=')) {
       console.log('pre')
       const splitted = lastCommit.split('[ci-bump pre=\\"')
       const pre = splitted[1].split('\\"')[0]
       console.log('pre:', pre)
-      await bumpVersion(fileName, { pre })
+      await bumpVersion(fileName, { pre, entry })
     } else if (lastCommit.includes('[ci-bump major]')) {
       console.log('major')
-      await bumpVersion(fileName, { major: true })
+      await bumpVersion(fileName, { major: true, entry })
     } else if (lastCommit.includes('[ci-bump minor]')) {
       console.log('minor')
-      await bumpVersion(fileName, { minor: true })
+      await bumpVersion(fileName, { minor: true, entry })
     } else {
       console.log('patch')
       await bumpVersion(fileName)

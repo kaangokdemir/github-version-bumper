@@ -45,6 +45,16 @@ jobs:
 | Pre-releasing     	| [ci-bump pre="staging"]   	| 1.5.8       	| 1.5.8-staging 	|
 | Exact Versioning  	| [ci-bump version="1.6.3"] 	| 1.5.8       	| 1.6.3         	|
 
+## Environment Variables
+
+| Environment Value 	| Description                                         	| Default                                          	|
+|-------------------	|-----------------------------------------------------	|--------------------------------------------------	|
+| `GITHUB_TOKEN`      	| Your authorized GitHub token                        	| `undefined`                                        	|
+| `GITHUB_USER`       	| Your preferred GitHub display name                  	| `'GitHub Version Bumper'`                          	|
+| `GITHUB_EMAIL`      	| Your GitHub account's email address to make commits 	| `'github-version-bumper@users.noreply.github.com'` 	|
+| `VERSION_FILE_NAME` 	| The file where your version entry exists            	| `'package.json'`                                   	|
+| `VERSION_ENTRY`     	| Entry key of your 'version'                         	| `'version'`                                        	|
+
 ## Contributing
 
 1. Fork it!
